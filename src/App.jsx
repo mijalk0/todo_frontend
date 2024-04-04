@@ -8,6 +8,7 @@ import Task, { TaskHeader } from './components/Task';
 import { RequiredLabel, RequiredText } from './components/Required';
 import Modal, { ModalContext, ModalProvider } from './components/Modal';
 import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
 import { useForm } from 'react-hook-form';
 import styled, { createGlobalStyle } from 'styled-components'
 import Helonik from './assets/helonik.otf'
@@ -55,114 +56,6 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
-function RegisterPage() {
-    document.title = "Register";
-    const { isModalOpen, setIsModalOpen } = useContext(ModalContext);
-    
-    const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors }, getValues } = useForm();
-    
-    async function onSubmit(data) {
-        const username = data.username;
-        const password = data.psw1;
-        var response = await fetch(`${BACKEND_URL}/auth/register`, {
-            method: "POST",
-            credentials: 'include',
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password,
-            })
-        })
-        if (response.ok) {
-            await fetch(`${BACKEND_URL}/auth/login`, {
-                method: "POST",
-                credentials: 'include',
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    username: username,
-                    password: password,
-                    rememberMe: rememberMe,
-                })
-            })
-            navigate("/tasks")
-        } else {
-            setIsModalOpen(true);
-        }
-    };
-
-    const [rememberMe, setRememberMe] = useState(false);
-
-    function handleRememberMeChange(_) {
-        setRememberMe(c => !c);
-    }
-
-    function passwordsMatch() {
-        const { psw1, psw2 } = getValues();
-        return psw1 === psw2;
-    }
-
-    return (
-        <>
-        <div>
-      {isModalOpen && <Modal error={"username exists"} />}
-    </div> 
-        <BoxContainer>
-            <BlurBox>
-                <form>
-                <BoxItem>
-                    <RequiredLabel>
-                        <label htmlFor="username">username</label>
-                        {errors.username && <RequiredText>required</RequiredText>}
-                    </RequiredLabel>
-                    <SmallTextInput
-                        type="text"
-                        placeholder=""
-                        required {...register('username', { required: true })}
-                    />
-                </BoxItem>
-                <BoxItem>
-                    <RequiredLabel>
-                        <label htmlFor="psw1">password</label>
-                        {errors.psw1 && <RequiredText>required</RequiredText>}
-                    </RequiredLabel>
-                    <SmallTextInput
-                        type="password"
-                        placeholder=""
-                        required {...register('psw1', { required: true })}
-                    />
-                </BoxItem>
-                <BoxItem>
-                    <RequiredLabel>
-                        <label htmlFor="psw2">confirm password</label>
-        {((!errors.psw1 && !passwordsMatch()) || errors.psw2) && <RequiredText>must match</RequiredText>}
-                    </RequiredLabel>
-                    <SmallTextInput
-                        type="password"
-                        placeholder=""
-                        required {...register('psw2', { required: true, validate: {
-            matchesPreviousPassword: (psw2, values) => {
-              return values.psw1 == psw2;
-            }
-                        }})}
-                    />
-                </BoxItem>
-                <BoxItem>
-                    <AnnotatedCheckbox checked={rememberMe} onChange={handleRememberMeChange} label="remember me" id="rememberme" size={30}/>
-                </BoxItem>
-                <BoxItem>
-                    <Button type="submit" onClick={handleSubmit(onSubmit)}>register</Button>
-                </BoxItem>
-                </form>
-            </BlurBox>
-        </BoxContainer>
-</>
-    );
-}
 
 function TasksPage() {
     if (document.cookie.indexOf("token") < 0) {
