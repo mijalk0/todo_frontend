@@ -3,9 +3,7 @@ import AnnotatedCheckbox from './components/AnnotatedCheckbox'
 import OrDivider from './components/OrDivider'
 import { Box, BlurBox, Container as BoxContainer, Item as BoxItem } from './components/Box'
 import Button from './components/Button';
-import TextArea from './components/TextArea';
-import SmallTextInput from './components/SmallTextInput';
-import LargeTextInput from './components/LargeTextInput';
+import { TextArea, SmallInput as SmallTextInput, LargeInput as LargeTextInput } from './components/Text';
 import Task, { TaskHeader } from './components/Task';
 import { RequiredLabel, RequiredText } from './components/Required';
 import { useForm } from 'react-hook-form';

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import debounce from "debounce"
+import debounce from "debounce";
 import styled from "styled-components";
 import AnnotatedCheckbox from "@/components/AnnotatedCheckbox";
 import { BlurBox, Item as BoxItem } from "@/components/Box";
 import Button from "@/components/Button";
-import TextArea from "@/components/TextArea";
+import { TextArea } from "@/components/Text";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
