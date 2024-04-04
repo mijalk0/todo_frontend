@@ -5,6 +5,7 @@ import Box from './components/Box'
 import BlurBox from './components/BlurBox'
 import BoxContainer from './components/BoxContainer';
 import BoxItem from './components/BoxItem';
+import Button from './components/Button';
 import { useForm } from 'react-hook-form';
 import debounce from 'debounce';
 import styled, { createGlobalStyle } from 'styled-components'
@@ -84,14 +85,6 @@ const TextArea = styled.textarea`
     color: black;
     background: grey;
     resize: vertical;
-`;
-
-const Button = styled.button`
-    border-color: transparent;
-    border-radius: 6px;
-    font-size: 20px;
-    color: black;
-    background: grey;
 `;
 
 const TaskHeader = styled.div`
