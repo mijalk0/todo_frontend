@@ -7,6 +7,8 @@ import checked from './assets/checkbox-checked-svgrepo-com.svg'
 import unchecked from './assets/checkbox-unchecked-svgrepo-com.svg'
 import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 const GlobalStyle = createGlobalStyle`
     @font-face {
       font-family: helonik;
@@ -237,7 +239,7 @@ function Modal(props) {
 };
 
 const updateDescription = debounce((description, setUpdatedAt, id) => {
-        fetch(`http://localhost:3000/tasks/${id}`, {
+        fetch(`${BACKEND_URL}/tasks/${id}`, {
           method: "PATCH",
           credentials: 'include',
           headers: {
@@ -265,7 +267,7 @@ function Task(props) {
     function handleCompletedChange(event) {
         const newCompleted = !(event.target.value == 'true');
         setCompleted(newCompleted);
-        fetch(`http://localhost:3000/tasks/${props.id}`, {
+        fetch(`${BACKEND_URL}/tasks/${props.id}`, {
           method: "PATCH",
           credentials: 'include',
           headers: {
@@ -291,7 +293,7 @@ function Task(props) {
                 <TaskHeader>
                     <div>{props.title}</div>
                         <Button type="submit" onClick={async () => {
-                            await fetch(`http://localhost:3000/tasks/${props.id}`, {
+                            await fetch(`${BACKEND_URL}/tasks/${props.id}`, {
                                 method: "DELETE",
                                 credentials: 'include',
                             });
@@ -328,7 +330,7 @@ function LoginPage() {
     async function onSubmit(data) {
         const username = data.username;
         const password = data.password;
-        const response = await fetch("http://localhost:3000/auth/login", {
+        const response = await fetch(`${BACKEND_URL}/auth/login`, {
             method: "POST",
             credentials: 'include',
             headers: {
@@ -337,6 +339,7 @@ function LoginPage() {
             body: JSON.stringify({
                 username: username,
                 password: password,
+                rememberMe: rememberMe,
             })
         })
         if (response.ok) {
@@ -413,7 +416,7 @@ function RegisterPage() {
     async function onSubmit(data) {
         const username = data.username;
         const password = data.psw1;
-        var response = await fetch("http://localhost:3000/auth/register", {
+        var response = await fetch(`${BACKEND_URL}/auth/register`, {
             method: "POST",
             credentials: 'include',
             headers: {
@@ -425,7 +428,7 @@ function RegisterPage() {
             })
         })
         if (response.ok) {
-            await fetch("http://localhost:3000/auth/login", {
+            await fetch(`${BACKEND_URL}/auth/login`, {
                 method: "POST",
                 credentials: 'include',
                 headers: {
@@ -434,6 +437,7 @@ function RegisterPage() {
                 body: JSON.stringify({
                     username: username,
                     password: password,
+                    rememberMe: rememberMe,
                 })
             })
             navigate("/tasks")
@@ -538,7 +542,7 @@ function TasksPage() {
     ));
 
     useEffect(() => {
-        fetch('http://localhost:3000/tasks', {
+        fetch(`${BACKEND_URL}/tasks`, {
             method: "GET",
             credentials: 'include',
         })
@@ -564,7 +568,7 @@ function TasksPage() {
             <BlurBox>
                 <InputField>
                     <Button type="submit" onClick={async () => {
-                        await fetch("http://localhost:3000/auth/logout", {
+                        await fetch(`${BACKEND_URL}/auth/logout`, {
                             method: "GET",
                             credentials: 'include',
                         })
@@ -579,7 +583,7 @@ function TasksPage() {
         <form onSubmit={
 async (event) => {
       event.preventDefault();
-                            var response = await fetch("http://localhost:3000/tasks", {
+                            var response = await fetch(`${BACKEND_URL}/tasks`, {
                                 method: "POST",
                                 credentials: 'include',
                                 headers: {
