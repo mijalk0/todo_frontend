@@ -7,6 +7,7 @@ import { TextArea, SmallInput as SmallTextInput, LargeInput as LargeTextInput } 
 import Task, { TaskHeader } from './components/Task';
 import { RequiredLabel, RequiredText } from './components/Required';
 import Modal, { ModalContext, ModalProvider } from './components/Modal';
+import LoginPage from "./pages/Login";
 import { useForm } from 'react-hook-form';
 import styled, { createGlobalStyle } from 'styled-components'
 import Helonik from './assets/helonik.otf'
@@ -14,7 +15,8 @@ import checked from './assets/checkbox-checked-svgrepo-com.svg'
 import unchecked from './assets/checkbox-unchecked-svgrepo-com.svg'
 import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+export { BACKEND_URL };
 
 const GlobalStyle = createGlobalStyle`
     @font-face {
@@ -52,90 +54,6 @@ const GlobalStyle = createGlobalStyle`
         background: url(${checked});
     }
 `;
-
-function LoginPage() {
-    document.title = "Login";
-    const { isModalOpen, setIsModalOpen } = useContext(ModalContext);
-
-    const [rememberMe, setRememberMe] = useState(false);
-
-    const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    
-    async function onSubmit(data) {
-        const username = data.username;
-        const password = data.password;
-        const response = await fetch(`${BACKEND_URL}/auth/login`, {
-            method: "POST",
-            credentials: 'include',
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password,
-                rememberMe: rememberMe,
-            })
-        })
-        if (response.ok) {
-            navigate("/tasks")
-        } else {
-            setIsModalOpen(true);
-        }
-    };
-
-    function handleRememberMeChange(_) {
-        setRememberMe(c => !c);
-    }
-
-
-    return (
-<>               <div>
-      {isModalOpen && <Modal error={"invalid login"} />}
-    </div> 
-        <BoxContainer>
-            <BlurBox>
-                <BoxItem>
-                    todo
-                </BoxItem>
-                <form>
-                <BoxItem>
-                    <RequiredLabel>
-                        <label htmlFor="username">username</label>
-                        {errors.username && <RequiredText>required</RequiredText>}
-                    </RequiredLabel>
-                    <SmallTextInput
-                        type="text"
-                        placeholder=""
-                        required {...register('username', { required: true })}
-                    />
-                </BoxItem>
-                <BoxItem>
-                    <RequiredLabel>
-                        <label htmlFor="password">password</label>
-                        {errors.password && <RequiredText>required</RequiredText>}
-                    </RequiredLabel>
-                    <SmallTextInput
-                        type="password"
-                        placeholder=""
-                        required {...register('password', { required: true })}
-                    />
-                </BoxItem>
-                <BoxItem>
-                    <AnnotatedCheckbox checked={rememberMe} onChange={handleRememberMeChange} label="remember me" id="rememberme" size={30}/>
-                <BoxItem/>
-                    <Button type="submit" onClick={handleSubmit(onSubmit)}>login</Button>
-                </BoxItem>
-                </form>
-                <OrDivider />
-                <BoxItem>
-                    <Button type="button" onClick={() => navigate("/register")}>register</Button>
-                </BoxItem>
-            </BlurBox>
-     </BoxContainer>
-   </>
-    );
-}
 
 function RegisterPage() {
     document.title = "Register";
