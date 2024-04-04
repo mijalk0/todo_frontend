@@ -52,7 +52,7 @@ function RegisterPage() {
                     rememberMe: rememberMe,
                 }),
             });
-            navigate("/tasks");
+            navigate("/");
         } else {
             setIsModalOpen(true);
         }

@@ -43,7 +43,7 @@ function LoginPage() {
             }),
         });
         if (response.ok) {
-            navigate("/tasks");
+            navigate("/");
         } else {
             setIsModalOpen(true);
         }
