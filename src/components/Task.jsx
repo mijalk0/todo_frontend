@@ -2,8 +2,7 @@ import { useState } from "react";
 import debounce from "debounce"
 import styled from "styled-components";
 import AnnotatedCheckbox from "@/components/AnnotatedCheckbox";
-import BlurBox from "@/components/BlurBox";
-import BoxItem from "@/components/BoxItem";
+import { BlurBox, Item as BoxItem } from "@/components/Box";
 import Button from "@/components/Button";
 import TextArea from "@/components/TextArea";
 

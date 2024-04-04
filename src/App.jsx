@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import AnnotatedCheckbox from './components/AnnotatedCheckbox'
 import OrDivider from './components/OrDivider'
-import Box from './components/Box'
-import BlurBox from './components/BlurBox'
-import BoxContainer from './components/BoxContainer';
-import BoxItem from './components/BoxItem';
+import { Box, BlurBox, Container as BoxContainer, Item as BoxItem } from './components/Box'
 import Button from './components/Button';
 import TextArea from './components/TextArea';
 import SmallTextInput from './components/SmallTextInput';
