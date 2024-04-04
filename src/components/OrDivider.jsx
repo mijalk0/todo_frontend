@@ -5,7 +5,6 @@ const Or = styled.div`
     font-size: 20px;
     padding: 10px;
     box-sizing: border-box;
-    font-family: helonik;
     display: flex;
     justify-content: space-between;
     align-items: center;

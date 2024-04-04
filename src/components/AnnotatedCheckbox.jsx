@@ -4,7 +4,6 @@ import unchecked from '@/assets/checkbox-unchecked-svgrepo-com.svg'
 
 const CheckboxLabel = styled.label`
     font-size: ${(props) => props.size}px;
-    font-family: helonik;
     display: flex;
     flex-direction: row;
     justify-content: left;
