@@ -10,6 +10,7 @@ import TextArea from './components/TextArea';
 import SmallTextInput from './components/SmallTextInput';
 import LargeTextInput from './components/LargeTextInput';
 import Task, { TaskHeader } from './components/Task';
+import { RequiredLabel, RequiredText } from './components/Required';
 import { useForm } from 'react-hook-form';
 import styled, { createGlobalStyle } from 'styled-components'
 import Helonik from './assets/helonik.otf'
@@ -54,16 +55,6 @@ const GlobalStyle = createGlobalStyle`
     input[type=checkbox]:checked::before {
         background: url(${checked});
     }
-`;
-
-const RequiredLabel = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-`;
-
-const RequiredText = styled.div`
-    font-size: 20px;
 `;
 
 const ModalContext = React.createContext();
