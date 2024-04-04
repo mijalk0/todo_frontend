@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import AnnotatedCheckbox from './components/AnnotatedCheckbox'
+import OrDivider from './components/OrDivider'
 import { useForm } from 'react-hook-form';
 import debounce from 'debounce';
 import styled, { createGlobalStyle } from 'styled-components'
@@ -125,25 +126,6 @@ const Button = styled.button`
     border-radius: 6px;
     font-size: 20px;
     color: black;
-    background: grey;
-`;
-
-const Or = styled.div`
-    width: 100%;
-    font-size: 20px;
-    padding: 10px;
-    box-sizing: border-box;
-    font-family: helonik;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: grey;
-    gap: 10px;
-`;
-
-const Rectangle = styled.div`
-    height: 2px;
-    width: 100%;
     background: grey;
 `;
 
@@ -363,11 +345,7 @@ function LoginPage() {
                     <Button type="submit" onClick={handleSubmit(onSubmit)}>login</Button>
                 </InputField>
                 </form>
-                <Or>
-                    <Rectangle />
-                    <div>or</div>
-                    <Rectangle />
-                </Or>
+                <OrDivider />
                 <InputField>
                     <Button type="button" onClick={() => navigate("/register")}>register</Button>
                 </InputField>
