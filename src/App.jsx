@@ -6,6 +6,9 @@ import BlurBox from './components/BlurBox'
 import BoxContainer from './components/BoxContainer';
 import BoxItem from './components/BoxItem';
 import Button from './components/Button';
+import TextArea from './components/TextArea';
+import SmallTextInput from './components/SmallTextInput';
+import LargeTextInput from './components/LargeTextInput';
 import { useForm } from 'react-hook-form';
 import debounce from 'debounce';
 import styled, { createGlobalStyle } from 'styled-components'
@@ -61,30 +64,6 @@ const RequiredLabel = styled.div`
 
 const RequiredText = styled.div`
     font-size: 20px;
-`;
-
-const SmallTextInput = styled.input`
-    border-color: transparent;
-    border-radius: 6px;
-    font-size: 20px;
-    color: black;
-    background: grey;
-    width: 100%;
-    box-sizing: border-box;
-`;
-
-const LargeTextInput = styled(SmallTextInput)`
-    font-size: 30px;
-    height: 100%;
-`;
-
-const TextArea = styled.textarea`
-    border-color: transparent;
-    border-radius: 6px;
-    font-size: 20px;
-    color: black;
-    background: grey;
-    resize: vertical;
 `;
 
 const TaskHeader = styled.div`
