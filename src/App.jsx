@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import AnnotatedCheckbox from './components/AnnotatedCheckbox'
 import { useForm } from 'react-hook-form';
 import debounce from 'debounce';
 import styled, { createGlobalStyle } from 'styled-components'
@@ -163,36 +164,6 @@ const TaskDates = styled.div`
     flex-direction: column;
 `;
 
-const CheckboxLabel = styled.label`
-    font-size: ${props => props.size}px;
-    font-family: helonik;
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    align-items: center;
-    color: grey;
-    user-select: none;
-`;
-
-const CheckBox = styled.div`
-    background: url("${props => props.checked ? checked : unchecked}");
-    background-size: contain;
-    width: ${props => props.size}px;
-    height: ${props => props.size}px;
-`;
-
-function AnnotatedCheckBox(props) {
-    return (
-        <>
-            <input type="checkbox" value={props.checked} id={props.id} style={{display: 'none'}} onChange={props.onChange}/>
-            <CheckboxLabel htmlFor={props.id} size={props.size}>
-                <CheckBox checked={props.checked} size={props.size}/>
-                {props.label}
-            </CheckboxLabel>
-        </>
-    );
-}
-
 
 const ModalContext = React.createContext();
 
@@ -311,7 +282,7 @@ function Task(props) {
                         <div>created at: {new Date(props.createdAt).toLocaleString('en-US')}</div>
                         <div>updated at: {new Date(updatedAt).toLocaleString('en-US')}</div>
                     </TaskDates>
-                    <AnnotatedCheckBox checked={completed} onChange={handleCompletedChange}  label="completed" id={props.id} size={20}/>
+                    <AnnotatedCheckbox checked={completed} onChange={handleCompletedChange}  label="completed" id={props.id} size={20}/>
                 </TaskFooter>
             </InputField>
         </BlurBox>
@@ -387,7 +358,7 @@ function LoginPage() {
                     />
                 </InputField>
                 <InputField>
-                    <AnnotatedCheckBox checked={rememberMe} onChange={handleRememberMeChange} label="remember me" id="rememberme" size={30}/>
+                    <AnnotatedCheckbox checked={rememberMe} onChange={handleRememberMeChange} label="remember me" id="rememberme" size={30}/>
                 <InputField/>
                     <Button type="submit" onClick={handleSubmit(onSubmit)}>login</Button>
                 </InputField>
@@ -503,7 +474,7 @@ function RegisterPage() {
                     />
                 </InputField>
                 <InputField>
-                    <AnnotatedCheckBox checked={rememberMe} onChange={handleRememberMeChange} label="remember me" id="rememberme" size={30}/>
+                    <AnnotatedCheckbox checked={rememberMe} onChange={handleRememberMeChange} label="remember me" id="rememberme" size={30}/>
                 </InputField>
                 <InputField>
                     <Button type="submit" onClick={handleSubmit(onSubmit)}>register</Button>
