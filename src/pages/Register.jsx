@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { RequiredText, RequiredLabel } from "@/components/Required";
-import { SmallInput as SmallTextInput } from "@/components/Text";
+import { SmallInput as SmallTextInput } from "@/components/Input";
 import {
     Container as BoxContainer,
     BlurBox,

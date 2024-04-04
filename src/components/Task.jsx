@@ -4,7 +4,7 @@ import styled from "styled-components";
 import AnnotatedCheckbox from "@/components/AnnotatedCheckbox";
 import { BlurBox, Item as BoxItem } from "@/components/Box";
 import Button from "@/components/Button";
-import { TextArea } from "@/components/Text";
+import { TextArea } from "@/components/Input";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 

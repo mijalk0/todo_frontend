@@ -6,7 +6,7 @@ import {
     Item as BoxItem,
 } from "@/components/Box";
 import Button from "@/components/Button";
-import { TextArea, LargeInput as LargeTextInput } from "@/components/Text";
+import { TextArea, LargeInput as LargeTextInput } from "@/components/Input";
 import Task, { TaskHeader } from "@/components/Task";
 import { BACKEND_URL } from "@/App";
 
