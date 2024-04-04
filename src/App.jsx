@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
 import AnnotatedCheckbox from './components/AnnotatedCheckbox'
 import OrDivider from './components/OrDivider'
+import Box from './components/Box'
+import BlurBox from './components/BlurBox'
+import BoxContainer from './components/BoxContainer';
+import BoxItem from './components/BoxItem';
 import { useForm } from 'react-hook-form';
 import debounce from 'debounce';
 import styled, { createGlobalStyle } from 'styled-components'
@@ -46,45 +50,6 @@ const GlobalStyle = createGlobalStyle`
     input[type=checkbox]:checked::before {
         background: url(${checked});
     }
-`;
-
-const BoxContainer = styled.div`
-        display: flex;
-        padding: 50px;
-        flex-direction: column;
-        gap: 20px;
-        justify-content: center;
-        align-items: center;
-`;
-
-const Box = styled.div`
-    width: ${props => props.width ? props.width : 400}px;
-    background-color: rgba(0, 0, 0, 1);
-    border-radius: 20px;
-    border-style: solid;
-    border-color: grey;
-    border-width: thin;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: space-between;
-`;
-
-const BlurBox = styled(Box)`
-    background-color: rgba(255, 255, 255, 0.01);
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
-`;
-
-const InputField = styled.div`
-    font-size: 30px;
-    padding: 10px;
-    font-family: helonik;
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    color: grey;
 `;
 
 const RequiredLabel = styled.div`
@@ -181,11 +146,11 @@ function Modal(props) {
   return (
     <ModalBackground>
       <Box width={300}>
-            <InputField>{props.error}
-            </InputField>
-            <InputField>
+            <BoxItem>{props.error}
+            </BoxItem>
+            <BoxItem>
                 <Button onClick={() => setIsModalOpen(false)}>close</Button>
-            </InputField>
+            </BoxItem>
       </Box>
     </ModalBackground>
   );
@@ -242,7 +207,7 @@ function Task(props) {
 
     return (
         <BlurBox>
-            <InputField>
+            <BoxItem>
                 <TaskHeader>
                     <div>{props.title}</div>
                         <Button type="submit" onClick={async () => {
@@ -254,11 +219,11 @@ function Task(props) {
                         }
                     }>delete</Button>
                 </TaskHeader>
-            </InputField>
-            <InputField>
+            </BoxItem>
+            <BoxItem>
                 <TextArea value={description} placeholder="description" onChange={handleDescriptionChange}></TextArea>
-            </InputField>
-            <InputField>
+            </BoxItem>
+            <BoxItem>
                 <TaskFooter>
                     <TaskDates>
                         <div>created at: {new Date(props.createdAt).toLocaleString('en-US')}</div>
@@ -266,7 +231,7 @@ function Task(props) {
                     </TaskDates>
                     <AnnotatedCheckbox checked={completed} onChange={handleCompletedChange}  label="completed" id={props.id} size={20}/>
                 </TaskFooter>
-            </InputField>
+            </BoxItem>
         </BlurBox>
     );
 }
@@ -313,11 +278,11 @@ function LoginPage() {
     </div> 
         <BoxContainer>
             <BlurBox>
-                <InputField>
+                <BoxItem>
                     todo
-                </InputField>
+                </BoxItem>
                 <form>
-                <InputField>
+                <BoxItem>
                     <RequiredLabel>
                         <label htmlFor="username">username</label>
                         {errors.username && <RequiredText>required</RequiredText>}
@@ -327,8 +292,8 @@ function LoginPage() {
                         placeholder=""
                         required {...register('username', { required: true })}
                     />
-                </InputField>
-                <InputField>
+                </BoxItem>
+                <BoxItem>
                     <RequiredLabel>
                         <label htmlFor="password">password</label>
                         {errors.password && <RequiredText>required</RequiredText>}
@@ -338,17 +303,17 @@ function LoginPage() {
                         placeholder=""
                         required {...register('password', { required: true })}
                     />
-                </InputField>
-                <InputField>
+                </BoxItem>
+                <BoxItem>
                     <AnnotatedCheckbox checked={rememberMe} onChange={handleRememberMeChange} label="remember me" id="rememberme" size={30}/>
-                <InputField/>
+                <BoxItem/>
                     <Button type="submit" onClick={handleSubmit(onSubmit)}>login</Button>
-                </InputField>
+                </BoxItem>
                 </form>
                 <OrDivider />
-                <InputField>
+                <BoxItem>
                     <Button type="button" onClick={() => navigate("/register")}>register</Button>
-                </InputField>
+                </BoxItem>
             </BlurBox>
      </BoxContainer>
    </>
@@ -414,7 +379,7 @@ function RegisterPage() {
         <BoxContainer>
             <BlurBox>
                 <form>
-                <InputField>
+                <BoxItem>
                     <RequiredLabel>
                         <label htmlFor="username">username</label>
                         {errors.username && <RequiredText>required</RequiredText>}
@@ -424,8 +389,8 @@ function RegisterPage() {
                         placeholder=""
                         required {...register('username', { required: true })}
                     />
-                </InputField>
-                <InputField>
+                </BoxItem>
+                <BoxItem>
                     <RequiredLabel>
                         <label htmlFor="psw1">password</label>
                         {errors.psw1 && <RequiredText>required</RequiredText>}
@@ -435,8 +400,8 @@ function RegisterPage() {
                         placeholder=""
                         required {...register('psw1', { required: true })}
                     />
-                </InputField>
-                <InputField>
+                </BoxItem>
+                <BoxItem>
                     <RequiredLabel>
                         <label htmlFor="psw2">confirm password</label>
         {((!errors.psw1 && !passwordsMatch()) || errors.psw2) && <RequiredText>must match</RequiredText>}
@@ -450,13 +415,13 @@ function RegisterPage() {
             }
                         }})}
                     />
-                </InputField>
-                <InputField>
+                </BoxItem>
+                <BoxItem>
                     <AnnotatedCheckbox checked={rememberMe} onChange={handleRememberMeChange} label="remember me" id="rememberme" size={30}/>
-                </InputField>
-                <InputField>
+                </BoxItem>
+                <BoxItem>
                     <Button type="submit" onClick={handleSubmit(onSubmit)}>register</Button>
-                </InputField>
+                </BoxItem>
                 </form>
             </BlurBox>
         </BoxContainer>
@@ -515,7 +480,7 @@ function TasksPage() {
     return (
         <BoxContainer>
             <BlurBox>
-                <InputField>
+                <BoxItem>
                     <Button type="submit" onClick={async () => {
                         await fetch(`${BACKEND_URL}/auth/logout`, {
                             method: "GET",
@@ -525,10 +490,10 @@ function TasksPage() {
                     }}>
                         logout
                     </Button>
-                </InputField>
+                </BoxItem>
             </BlurBox>
             <BlurBox>
-                <InputField>
+                <BoxItem>
         <form onSubmit={
 async (event) => {
       event.preventDefault();
@@ -554,10 +519,10 @@ async (event) => {
                         <Button type="submit" >create</Button>
                     </TaskHeader>
                     </form>
-                </InputField>
-                <InputField>
+                </BoxItem>
+                <BoxItem>
                     <TextArea placeholder="description" value={createTaskDescription} onChange={handleCreateTaskDescription}></TextArea>
-                </InputField>
+                </BoxItem>
             </BlurBox>
             {taskList}
         </BoxContainer>
