@@ -6,6 +6,7 @@ import Button from './components/Button';
 import { TextArea, SmallInput as SmallTextInput, LargeInput as LargeTextInput } from './components/Text';
 import Task, { TaskHeader } from './components/Task';
 import { RequiredLabel, RequiredText } from './components/Required';
+import Modal, { ModalContext, ModalProvider } from './components/Modal';
 import { useForm } from 'react-hook-form';
 import styled, { createGlobalStyle } from 'styled-components'
 import Helonik from './assets/helonik.otf'
@@ -51,50 +52,6 @@ const GlobalStyle = createGlobalStyle`
         background: url(${checked});
     }
 `;
-
-const ModalContext = React.createContext();
-
-function ModalProvider({ children }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  return (
-    <ModalContext.Provider value={{ isModalOpen, setIsModalOpen }}>
-      {children}
-    </ModalContext.Provider>
-  );
-};
-
-
-const ModalBackground = styled.div`
-  z-index: 1; /* Sit on top */
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-
-function Modal(props) {
-  const { setIsModalOpen } = useContext(ModalContext);
-
-  return (
-    <ModalBackground>
-      <Box width={300}>
-            <BoxItem>{props.error}
-            </BoxItem>
-            <BoxItem>
-                <Button onClick={() => setIsModalOpen(false)}>close</Button>
-            </BoxItem>
-      </Box>
-    </ModalBackground>
-  );
-};
 
 function LoginPage() {
     document.title = "Login";
