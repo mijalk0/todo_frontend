@@ -9,6 +9,7 @@ import { RequiredLabel, RequiredText } from './components/Required';
 import Modal, { ModalContext, ModalProvider } from './components/Modal';
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
+import TasksPage from "./pages/Tasks";
 import { useForm } from 'react-hook-form';
 import styled, { createGlobalStyle } from 'styled-components'
 import Helonik from './assets/helonik.otf'
@@ -24,7 +25,6 @@ const GlobalStyle = createGlobalStyle`
       font-family: helonik;
       src: url(${Helonik}) format('opentype');
     }
-    
     html * {
         font-family: arial;
     }
@@ -55,107 +55,6 @@ const GlobalStyle = createGlobalStyle`
         background: url(${checked});
     }
 `;
-
-
-function TasksPage() {
-    if (document.cookie.indexOf("token") < 0) {
-        return <Navigate to="/login" />
-    }
-
-    document.title = "Tasks";
-
-    const [tasks, setTasks] = useState([]);
-
-    function deleteTask(id) {
-        setTasks(tasks.filter((task) => task.id != id))
-    }
-
-    const taskList = tasks?.map((task) => (
-      <Task
-        title={task.title}
-        completed={task.completed}
-        description={task.description}
-        createdAt={task.createdAt}
-        updatedAt={task.updatedAt}
-        id={task.id}
-        key={task.id}
-        deleteTask={deleteTask}
-      />
-    ));
-
-    useEffect(() => {
-        fetch(`${BACKEND_URL}/tasks`, {
-            method: "GET",
-            credentials: 'include',
-        })
-        .then((response) => response.json())
-        .then((data) => setTasks(data))
-    }, []);
-
-    const [createTaskName, setCreateTaskName] = useState("");
-    const [createTaskDescription, setCreateTaskDescription] = useState("");
-
-    function handleCreateTaskName(event) {
-      setCreateTaskName(event.target.value);
-    }
-
-    function handleCreateTaskDescription(event) {
-      setCreateTaskDescription(event.target.value);
-    }
-
-    const navigate = useNavigate();
-
-    return (
-        <BoxContainer>
-            <BlurBox>
-                <BoxItem>
-                    <Button type="submit" onClick={async () => {
-                        await fetch(`${BACKEND_URL}/auth/logout`, {
-                            method: "GET",
-                            credentials: 'include',
-                        })
-                        navigate("/login")
-                    }}>
-                        logout
-                    </Button>
-                </BoxItem>
-            </BlurBox>
-            <BlurBox>
-                <BoxItem>
-        <form onSubmit={
-async (event) => {
-      event.preventDefault();
-                            var response = await fetch(`${BACKEND_URL}/tasks`, {
-                                method: "POST",
-                                credentials: 'include',
-                                headers: {
-                                  "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({
-                                    title: createTaskName,
-                                    description: createTaskDescription,
-                                })
-                            })
-                            var task = await response.json()
-                            setTasks([task,...tasks]);
-                            setCreateTaskName("");
-                            setCreateTaskDescription("");
-                        }
-        }>
-                    <TaskHeader>
-                        <LargeTextInput type="text" placeholder="name" value={createTaskName} onChange={handleCreateTaskName} required />
-                        <Button type="submit" >create</Button>
-                    </TaskHeader>
-                    </form>
-                </BoxItem>
-                <BoxItem>
-                    <TextArea placeholder="description" value={createTaskDescription} onChange={handleCreateTaskDescription}></TextArea>
-                </BoxItem>
-            </BlurBox>
-            {taskList}
-        </BoxContainer>
-    );
-}
 
 function App() {
   return (
